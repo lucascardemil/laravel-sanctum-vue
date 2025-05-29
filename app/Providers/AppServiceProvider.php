@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Set the default string length for database columns
-        Schema::defaultStringLength(191);
+        Schema::defaultStringLength(125);
 
         // Optionally, you can add other bootstrapping logic here
         // For example, you might want to load routes, views, or configurations

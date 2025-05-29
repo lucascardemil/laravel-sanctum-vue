@@ -1,55 +1,88 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="https://techvblogs.com/blog/spa-authentication-laravel-9-sanctum-vue3-vite" target="_blank">TechvBlogs</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <router-link :to="{name:'dashboard'}" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
-                        </li>
-                    </ul>
-                    <div class="d-flex">
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ user.name }}
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="javascript:void(0)" @click="logout">Logout</a>
+        <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Nombre de Compañia</a>
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar" aria-label="Search">
+            <div class="navbar-nav">
+                <div class="nav-item text-nowrap">
+                    <a class="nav-link px-3" href="javascript:void(0)" @click="logout">Cerrar Sesión</a>
+                </div>
+            </div>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                    <div class="position-sticky pt-3">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <router-link to="/" class="nav-link">
+                                    Inicio
+                                </router-link>
+                            </li>
+                            <li class="nav-item" v-if="can('roles')">
+                                <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse"
+                                    data-bs-target="#roles-collapse" aria-expanded="true">
+                                    Roles
+                                </button>
+                                <div class="collapse show" id="roles-collapse" style="">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><router-link to="/roles" class="link-dark rounded">Crear Roles</router-link></li>
+                                        <li><router-link to="/asignar-roles" class="link-dark rounded">Asignar Roles</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item" v-if="can('permisos')">
+                                <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse"
+                                    data-bs-target="#permisos-collapse" aria-expanded="true">
+                                    Permisos
+                                </button>
+                                <div class="collapse show" id="permisos-collapse" style="">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><router-link to="/permisos" class="link-dark rounded">Crear Permisos</router-link></li>
+                                        <li><router-link to="/asignar-permisos" class="link-dark rounded">Asignar Permisos</router-link></li>
+                                    </ul>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                </div>
+                </nav>
+
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-3">
+                    <router-view></router-view>
+                </main>
             </div>
-        </nav>
-        <main class="mt-3">
-            <router-view></router-view>
-        </main>
+        </div>
     </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { can } from '@/helpers/permisos'
+import { mapActions } from 'vuex'
 export default {
-    name:"default-layout",
-    data(){
-        return {
-            user:this.$store.state.auth.user
+    name: "default-layout",
+    computed: {
+        can() {
+            return can
         }
     },
-    methods:{
+    data() {
+        return {
+            user: this.$store.state.auth.user
+        }
+    },
+    methods: {
         ...mapActions({
-            signOut:"auth/logout"
+            signOut: "auth/logout"
         }),
-        async logout(){
-            await axios.post('/logout').then(({data})=>{
+        async logout() {
+            await axios.post('/logout').then(({ data }) => {
                 this.signOut()
-                this.$router.push({name:"login"})
+                this.$router.push({ name: "login" })
             })
         }
     }

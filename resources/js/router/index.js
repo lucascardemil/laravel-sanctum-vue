@@ -14,6 +14,12 @@ const DahboardLayout = () => import('@/components/layouts/Default.vue')
 const Dashboard = () => import('@/components/Dashboard.vue')
 /* Authenticated Component */
 
+/* Roles and Permissions */
+const RolesIndex = () => import('@/components/roles/RolesIndex.vue')
+const AsignarRoles = () => import('@/components/roles/AsignarRoles.vue')
+const PermisosIndex = () => import('@/components/permisos/PermisosIndex.vue')
+const AsignarPermisos = () => import('@/components/permisos/AsignarPermisos.vue')
+
 
 const routes = [
     {
@@ -47,6 +53,38 @@ const routes = [
                 component: Dashboard,
                 meta: {
                     title: `Dashboard`
+                }
+            },
+            {
+                name: "roles",
+                path: "/roles",
+                component: RolesIndex,
+                meta: {
+                    title: "Gestión de Roles"
+                }
+            },
+            {
+                path: '/asignar-roles',
+                name: 'asignar-roles',
+                component: AsignarRoles,
+                meta: {
+                    title: 'Asignar Roles',
+                }
+            },
+            {
+                path: "/permisos",
+                name: "permisos",
+                component: PermisosIndex,
+                meta: {
+                    title: "Permisos"
+                }
+            },
+            {
+                path: "/asignar-permisos",
+                name: "asignar-permisos",
+                component: AsignarPermisos,
+                meta: {
+                    title: "Asignar Permisos"
                 }
             }
         ]
