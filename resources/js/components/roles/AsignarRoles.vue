@@ -7,7 +7,7 @@
         <div class="mb-4">
             <label for="usuario" class="form-label">Selecciona un usuario:</label>
             <select class="form-select" v-model="usuarioSeleccionado" @change="cargarRolesUsuario">
-                <option disabled value="">Selecciona un usuario</option>
+                <option disabled selected value="null">Selecciona un usuario</option>
                 <option v-for="usuario in usuarios" :value="usuario.id" :key="usuario.id">
                     {{ usuario.name }}
                 </option>
@@ -15,7 +15,7 @@
         </div>
 
         <div v-if="usuarioSeleccionado">
-            <h3 class="font-semibold mb-2">Roles disponibles:</h3>
+            <h3 class="font-semibold mb-2">Roles disponibles</h3>
             <div class="form-check" v-for="rol in roles" :key="rol.id">
                 <input class="form-check-input" type="checkbox" :id="'rol-' + rol.id" :value="rol.name"
                     v-model="rolesAsignados" />

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\PermisoController;
 use App\Http\Controllers\Api\RolPermisoController;
 use App\Http\Controllers\Api\UsuarioRolController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UsuariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,13 @@ Route::middleware(['auth:sanctum', 'role:Administrador', 'permission:permisos'])
 
     Route::get('/roles/{role}/permisos', [RolPermisoController::class, 'show']);
     Route::post('/roles/{role}/permisos', [RolPermisoController::class, 'update']);
+});
+
+Route::middleware(['auth:sanctum', 'role:Administrador', 'permission:usuarios'])->group(function () {
+
+    Route::get('/usuarios', [UsuariosController::class, 'index']);
+    Route::post('/usuarios', [UsuariosController::class, 'store']);
+    Route::delete('/usuarios/{id}', [UsuariosController::class, 'delete']);
+    Route::put('/usuarios/{id}/cambiar-password', [UsuariosController::class, 'cambiarPassword']);
+
 });

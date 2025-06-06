@@ -20,6 +20,13 @@ const AsignarRoles = () => import('@/components/roles/AsignarRoles.vue')
 const PermisosIndex = () => import('@/components/permisos/PermisosIndex.vue')
 const AsignarPermisos = () => import('@/components/permisos/AsignarPermisos.vue')
 
+/* Usuarios */
+const UsuariosIndex = () => import('@/components/usuarios/UsuariosIndex.vue')
+const CambiarPassword = () => import('@/components/usuarios/CambiarPassword.vue')
+const CrearUsuario = () => import('@/components/usuarios/CrearUsuario.vue')
+const CrearRol = () => import('@/components/roles/CrearRol.vue')
+const CrearPermiso = () => import('@/components/permisos/CrearPermiso.vue')
+
 
 const routes = [
     {
@@ -28,7 +35,7 @@ const routes = [
         component: Login,
         meta: {
             middleware: "guest",
-            title: `Login`
+            title: `Iniciar Sesión`
         }
     },
     {
@@ -86,7 +93,48 @@ const routes = [
                 meta: {
                     title: "Asignar Permisos"
                 }
-            }
+            },
+            {
+                path: "/usuarios",
+                name: "usuarios",
+                component: UsuariosIndex,
+                meta: {
+                    title: "Usuarios",
+                }
+            },
+            {
+                path: "/usuarios/:id/cambiar-password",
+                name: "cambiar-password",
+                component: CambiarPassword,
+                meta: {
+                    title: "Cambiar Contraseña",
+                },
+            },
+            {
+                path: "/usuarios/crear-usuario",
+                name: "crear-usuario",
+                component: CrearUsuario,
+                meta: {
+                    title: "Crear Usuario",
+                }
+            },
+            {
+                path: "/roles/crear-rol",
+                name: "crear-rol",
+                component: CrearRol,
+                meta: {
+                    title: "Crear Rol",
+                }
+            },
+            {
+                path: "/permisos/crear-permiso",
+                name: "crear-permiso",
+                component: CrearPermiso,
+                meta: {
+                    title: "Crear Permiso",
+                }
+            },
+
         ]
     }
 ]

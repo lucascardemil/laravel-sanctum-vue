@@ -4,12 +4,13 @@
 
         <h2 class="font-bold mb-4">Gestión de Roles</h2>
 
-        <form @submit.prevent="crearRol">
-            <div class="form-group mb-3">
-                <input v-model="nuevoRol" placeholder="Nombre del rol" class="form-control" />
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-end">
+            <router-link to="/roles/crear-rol" class="btn btn-primary">
+                <i class="bi bi-plus"></i> Crear Rol
+            </router-link>
             </div>
-            <button class="btn btn-primary" :disabled="loading">Crear</button>
-        </form>
+        </div>
 
         <table class="table mt-4">
             <thead>
@@ -45,7 +46,6 @@ export default {
     data() {
         return {
             roles: [],
-            nuevoRol: '',
             loading: false
         }
     },
@@ -58,18 +58,6 @@ export default {
             try {
                 const response = await axios.get('/api/roles')
                 this.roles = response.data
-            } finally {
-                this.loading = false
-            }
-        },
-        async crearRol() {
-            if (!this.nuevoRol) return
-            this.loading = true
-
-            try {
-                await axios.post('/api/roles', { name: this.nuevoRol })
-                this.nuevoRol = ''
-                await this.obtenerRoles()
             } finally {
                 this.loading = false
             }

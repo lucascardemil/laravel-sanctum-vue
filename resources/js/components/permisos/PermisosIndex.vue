@@ -1,12 +1,17 @@
 <template>
     <div>
         <loading-overlay :active="loading" :is-full-page="false" />
-        <h2 class="h4 mb-4">Permisos</h2>
-        <form class="mb-3 d-flex align-items-center" @submit.prevent="crearPermiso">
-            <input v-model="nuevoPermiso" type="text" placeholder="Nombre del permiso" class="form-control me-2"
-                style="max-width: 250px;" />
-            <button type="submit" class="btn btn-success">Crear</button>
-        </form>
+
+        <div class="row justify-content-between mb-3 align-items-center">
+            <div class="col-6">
+                <h2 class="fw-bold mb-4">Crear Permisos</h2>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <router-link to="/permisos/crear-permiso" class="btn fw-bold btn-primary">
+                    <i class="bi bi-plus"></i> Crear Permiso
+                </router-link>
+            </div>
+        </div>
 
         <table class="table table-striped mt-4">
             <thead>
@@ -42,7 +47,6 @@ export default {
     data() {
         return {
             permisos: [],
-            nuevoPermiso: '',
             loading: false
         }
     },
@@ -55,17 +59,6 @@ export default {
             try {
                 const res = await axios.get('/api/permisos')
                 this.permisos = res.data
-            } finally {
-                this.loading = false
-            }
-        },
-        async crearPermiso() {
-            this.loading = true
-            try {
-                if (!this.nuevoPermiso) return
-                await axios.post('/api/permisos', { name: this.nuevoPermiso })
-                this.nuevoPermiso = ''
-                this.obtenerPermisos()
             } finally {
                 this.loading = false
             }

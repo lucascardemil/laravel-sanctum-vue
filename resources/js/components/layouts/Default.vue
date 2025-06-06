@@ -20,7 +20,7 @@
                     <div class="position-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <router-link to="/" class="nav-link">
+                                <router-link to="/" class="nav-link" active-class="fw-bold">
                                     Inicio
                                 </router-link>
                             </li>
@@ -31,8 +31,16 @@
                                 </button>
                                 <div class="collapse show" id="roles-collapse" style="">
                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li><router-link to="/roles" class="link-dark rounded">Crear Roles</router-link></li>
-                                        <li><router-link to="/asignar-roles" class="link-dark rounded">Asignar Roles</router-link></li>
+                                        <li>
+                                            <router-link to="/roles" class="link-dark rounded" active-class="fw-bold">
+                                                Gestión de Roles
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <router-link to="/asignar-roles" class="link-dark rounded" active-class="fw-bold">
+                                                Asignar Roles
+                                            </router-link>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -43,8 +51,31 @@
                                 </button>
                                 <div class="collapse show" id="permisos-collapse" style="">
                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li><router-link to="/permisos" class="link-dark rounded">Crear Permisos</router-link></li>
-                                        <li><router-link to="/asignar-permisos" class="link-dark rounded">Asignar Permisos</router-link></li>
+                                        <li>
+                                            <router-link to="/permisos" class="link-dark rounded" active-class="fw-bold">
+                                                Gestionar Permisos
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <router-link to="/asignar-permisos" class="link-dark rounded" active-class="fw-bold">
+                                                Asignar Permisos
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item" v-if="can('usuarios')">
+                                <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse"
+                                    data-bs-target="#usuarios-collapse" aria-expanded="true">
+                                    Usuarios
+                                </button>
+                                <div class="collapse show" id="usuarios-collapse" style="">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li>
+                                            <router-link to="/usuarios" class="link-dark rounded" active-class="fw-bold">
+                                                Gestion de Usuarios
+                                            </router-link>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

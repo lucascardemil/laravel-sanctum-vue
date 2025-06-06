@@ -10,8 +10,14 @@
 
 @import 'dashboard';
 @import 'sidebar';
+@import 'login';
 
 
 html, body, #app {
     height:100%;
 }
+
+.bi::before, [class^="bi-"]::before, [class*=" bi-"]::before {
+  font-weight: 700 !important;
+}
+

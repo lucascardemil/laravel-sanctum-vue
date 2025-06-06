@@ -6,6 +6,7 @@
         <div class="mb-3">
             <label class="form-label">Selecciona Rol:</label>
             <select v-model="rolSeleccionado" @change="cargarPermisosRol" class="form-select">
+                <option value="null" disabled selected>Seleccione un rol</option>
                 <option v-for="rol in roles" :value="rol.id" :key="rol.id">{{ rol.name }}</option>
             </select>
         </div>
